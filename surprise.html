@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romantic Gift Surprise</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pink: {
+                            50: '#fff5f7',
+                            100: '#ffe4e8',
+                            200: '#fecdd6',
+                            300: '#fda4af',
+                            400: '#fb7185',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                        }
+                    },
+                    fontFamily: {
+                        cursive: ['"Dancing Script"', 'cursive'],
+                        sans: ['"Nunito"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #fce7f3;
+            background-image: radial-gradient(#fbcfe8 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+            overflow-x: hidden;
+        }
+
+        .font-cursive {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(3deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        .animate-float-delayed {
+            animation: float 4s ease-in-out 2s infinite;
+        }
+
+        /* Vinyl Spin Animation */
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spin-slow 12s linear infinite;
+        }
+        .paused {
+            animation-play-state: paused;
+        }
+
+        /* Heart Beat */
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+        .animate-heartbeat {
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        /* Custom Scrollbar for Letter */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #ffe4e8;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #fda4af;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-700 flex items-center justify-center p-4 relative select-none">
+
+    <!-- Decorative Floating Hearts in Background -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div class="absolute top-10 left-10 text-pink-300 text-3xl opacity-50 animate-float"><i class="fa-solid fa-heart"></i></div>
+        <div class="absolute top-1/4 right-12 text-pink-300 text-4xl opacity-40 animate-float-delayed"><i class="fa-solid fa-heart"></i></div>
+        <div class="absolute bottom-16 left-1/5 text-pink-300 text-2xl opacity-60 animate-float"><i class="fa-solid fa-heart"></i></div>
+        <div class="absolute bottom-10 right-1/4 text-pink-300 text-5xl opacity-30 animate-float-delayed"><i class="fa-solid fa-heart"></i></div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="w-full max-w-4xl min-h-[580px] bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl border-4 border-pink-200 p-6 md:p-8 relative z-10 flex flex-col justify-center items-center transition-all duration-500">
+
+        <!-- STEP 1: KEYPAD / PASSCODE SCREEN -->
+        <section id="step-passcode" class="w-full max-w-md flex flex-col items-center">
+            <!-- Header Photos / Avatars -->
+            <div class="flex items-center justify-center space-x-3 mb-4">
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-pink-300 shadow-md overflow-hidden transform -rotate-6 hover:rotate-0 transition-transform duration-300">
+                    <img src="https://images.jpg/light yagami.webp" alt="ma photo" class="w-full h-full object-cover">
+                </div>
+                <div class="text-pink-400 text-2xl animate-heartbeat">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-pink-300 shadow-md overflow-hidden transform rotate-6 hover:rotate-0 transition-transform duration-300">
+                    <img src="https://images.jpg/misa amane.webp" alt="ma photo" class="w-full h-full object-cover">
+                </div>
+            </div>
+
+            <h1 class="font-cursive text-3xl md:text-4xl text-pink-600 font-bold mb-4 text-center">Enter our secret code</h1>
+
+            <!-- Passcode Display Hearts -->
+            <div id="passcode-dots" class="flex justify-center space-x-3 mb-6 bg-pink-50 px-6 py-3 rounded-full border-2 border-pink-200">
+                <span class="dot text-2xl text-pink-200 transition-colors"><i class="fa-solid fa-heart"></i></span>
+                <span class="dot text-2xl text-pink-200 transition-colors"><i class="fa-solid fa-heart"></i></span>
+                <span class="dot text-2xl text-pink-200 transition-colors"><i class="fa-solid fa-heart"></i></span>
+                <span class="dot text-2xl text-pink-200 transition-colors"><i class="fa-solid fa-heart"></i></span>
+            </div>
+
+            <!-- Error / Hint Message -->
+            <div id="passcode-msg" class="h-6 text-sm font-semibold text-pink-500 mb-2 text-center">
+                Hint: Standard code is 1234
+            </div>
+
+            <!-- Numeric Keypad -->
+            <div class="grid grid-cols-3 gap-3 w-64 mb-4">
+                <button onclick="appendNum('1')" class="keypad-btn">1</button>
+                <button onclick="appendNum('2')" class="keypad-btn">2</button>
+                <button onclick="appendNum('3')" class="keypad-btn">3</button>
+                <button onclick="appendNum('4')" class="keypad-btn">4</button>
+                <button onclick="appendNum('5')" class="keypad-btn">5</button>
+                <button onclick="appendNum('6')" class="keypad-btn">6</button>
+                <button onclick="appendNum('7')" class="keypad-btn">7</button>
+                <button onclick="appendNum('8')" class="keypad-btn">8</button>
+                <button onclick="appendNum('9')" class="keypad-btn">9</button>
+                <button onclick="clearPasscode()" class="keypad-btn text-base font-semibold text-pink-400"><i class="fa-solid fa-rotate-left"></i></button>
+                <button onclick="appendNum('0')" class="keypad-btn">0</button>
+                <button onclick="deleteNum()" class="keypad-btn text-base font-semibold text-pink-400"><i class="fa-solid fa-backspace"></i></button>
+            </div>
+        </section>
+
+        <!-- STEP 2: GIFT SELECTION PAGE -->
+        <section id="step-gifts" class="w-full flex-col items-center justify-center hidden text-center">
+            <h2 class="font-cursive text-4xl md:text-5xl text-pink-600 font-bold mb-2">You unlocked it! 🎉</h2>
+            <p class="text-pink-400 text-lg font-semibold mb-8">Your special surprises are waiting for you</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-2xl px-4">
+                <!-- Gift Box 1 -->
+                <div onclick="openGift(1)" class="group cursor-pointer bg-pink-50 border-2 border-pink-200 rounded-2xl p-6 flex flex-col items-center shadow-md hover:shadow-xl hover:border-pink-400 hover:-translate-y-2 transition-all duration-300">
+                    <div class="w-24 h-24 text-pink-400 group-hover:scale-110 transition-transform duration-300 relative">
+                        <i class="fa-solid fa-gift text-7xl text-pink-400"></i>
+                        <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-xs font-bold bg-pink-500 rounded-full px-2 py-0.5 shadow">#1</span>
+                    </div>
+                    <span class="mt-4 font-bold text-pink-600 text-lg">Gift Box 1</span>
+                    <span class="text-xs text-pink-400 mt-1">Tap to open</span>
+                </div>
+
+                <!-- Gift Box 2 -->
+                <div onclick="openGift(2)" class="group cursor-pointer bg-pink-50 border-2 border-pink-200 rounded-2xl p-6 flex flex-col items-center shadow-md hover:shadow-xl hover:border-pink-400 hover:-translate-y-2 transition-all duration-300">
+                    <div class="w-24 h-24 text-pink-400 group-hover:scale-110 transition-transform duration-300 relative">
+                        <i class="fa-solid fa-gift text-7xl text-pink-400"></i>
+                        <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-xs font-bold bg-pink-500 rounded-full px-2 py-0.5 shadow">#2</span>
+                    </div>
+                    <span class="mt-4 font-bold text-pink-600 text-lg">Gift Box 2</span>
+                    <span class="text-xs text-pink-400 mt-1">Tap to open</span>
+                </div>
+
+                <!-- Gift Box 3 -->
+                <div onclick="openGift(3)" class="group cursor-pointer bg-pink-50 border-2 border-pink-200 rounded-2xl p-6 flex flex-col items-center shadow-md hover:shadow-xl hover:border-pink-400 hover:-translate-y-2 transition-all duration-300">
+                    <div class="w-24 h-24 text-pink-400 group-hover:scale-110 transition-transform duration-300 relative">
+                        <i class="fa-solid fa-gift text-7xl text-pink-400"></i>
+                        <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-xs font-bold bg-pink-500 rounded-full px-2 py-0.5 shadow">#3</span>
+                    </div>
+                    <span class="mt-4 font-bold text-pink-600 text-lg">Gift Box 3</span>
+                    <span class="text-xs text-pink-400 mt-1">Tap to open</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SURPRISE 1: TULIPS BOUQUET -->
+        <section id="surprise-1" class="w-full flex-col items-center hidden relative">
+            <h2 class="font-cursive text-4xl text-pink-600 font-bold mb-4 text-center">Your Favorite Tulips 🌷</h2>
+            
+            <div class="w-full max-w-2xl relative min-h-[380px] flex items-center justify-center">
+                <!-- Central Tulip SVG/Graphic -->
+                <div class="relative z-10 w-44 h-44 md:w-56 md:h-56 animate-float flex items-center justify-center">
+                    <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-xl">
+                        <!-- Wrapper Ribbon -->
+                        <path d="M70 140 Q100 135 130 140 L120 190 Q100 195 80 190 Z" fill="#fda4af" />
+                        <path d="M85 140 L115 140 L100 155 Z" fill="#f43f5e" />
+                        <!-- Stems -->
+                        <path d="M100 100 Q95 130 90 150 M100 100 Q105 130 110 150 M90 100 Q98 125 100 150" stroke="#4ade80" stroke-width="4" fill="none"/>
+                        <!-- Flowers -->
+                        <!-- Center Tulip -->
+                        <path d="M100 60 C80 60 75 90 100 110 C125 90 120 60 100 60 Z" fill="#fb7185"/>
+                        <path d="M100 60 C90 70 90 95 100 110 C110 95 110 70 100 60 Z" fill="#f43f5e"/>
+                        <!-- Left Tulip -->
+                        <g transform="rotate(-20 80 80)">
+                            <path d="M80 50 C60 50 55 80 80 100 C105 80 100 50 80 50 Z" fill="#fda4af"/>
+                            <path d="M80 50 C70 60 70 85 80 100 C90 85 90 60 80 50 Z" fill="#fb7185"/>
+                        </g>
+                        <!-- Right Tulip -->
+                        <g transform="rotate(20 120 80)">
+                            <path d="M120 50 C100 50 95 80 120 100 C145 80 140 50 120 50 Z" fill="#fda4af"/>
+                            <path d="M120 50 C110 60 110 85 120 100 C130 85 130 60 120 50 Z" fill="#fb7185"/>
+                        </g>
+                    </svg>
+                </div>
+
+                <!-- Romantic Bubbles Around -->
+                <div class="absolute top-2 left-2 md:left-6 bg-pink-100 border border-pink-300 rounded-2xl p-3 text-xs md:text-sm font-semibold text-pink-700 shadow-md max-w-[140px] md:max-w-[180px] text-center transform -rotate-3 hover:scale-105 transition-transform">
+                    ✨ You make my heart bloom every day!
+                </div>
+                <div class="absolute top-4 right-2 md:right-6 bg-pink-100 border border-pink-300 rounded-2xl p-3 text-xs md:text-sm font-semibold text-pink-700 shadow-md max-w-[140px] md:max-w-[180px] text-center transform rotate-3 hover:scale-105 transition-transform">
+                    💖 I choose you today, tomorrow & forever.
+                </div>
+                <div class="absolute bottom-12 left-0 md:left-4 bg-pink-100 border border-pink-300 rounded-2xl p-3 text-xs md:text-sm font-semibold text-pink-700 shadow-md max-w-[140px] md:max-w-[180px] text-center transform rotate-2 hover:scale-105 transition-transform">
+                    🌸 Life feels so much sweeter with you.
+                </div>
+                <div class="absolute bottom-10 right-0 md:right-4 bg-pink-100 border border-pink-300 rounded-2xl p-3 text-xs md:text-sm font-semibold text-pink-700 shadow-md max-w-[140px] md:max-w-[180px] text-center transform -rotate-2 hover:scale-105 transition-transform">
+                    🌷 My love for you keeps growing endlessly.
+                </div>
+            </div>
+
+            <button onclick="backToGifts()" class="mt-6 px-6 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-full font-bold shadow-md transition-all flex items-center gap-2">
+                <i class="fa-solid fa-arrow-left"></i> Back to Gifts
+            </button>
+        </section>
+
+        <!-- SURPRISE 2: MUSIC PLAYLIST -->
+        <section id="surprise-2" class="w-full flex-col items-center hidden">
+            <h2 class="font-cursive text-4xl text-pink-600 font-bold mb-1 text-center">A Playlist Made For You 🎶</h2>
+            <p class="text-xs text-pink-400 mb-6 font-semibold">Songs that sound like us</p>
+
+            <div class="flex flex-col md:flex-row items-center justify-center gap-8 w-full max-w-2xl px-4">
+                <!-- Music Card / Player -->
+                <div class="bg-gradient-to-br from-pink-500 to-rose-400 text-white rounded-2xl p-5 shadow-xl w-64 flex flex-col items-center border border-pink-300">
+                    <div class="w-48 h-48 rounded-xl overflow-hidden shadow-inner mb-4 relative group">
+                        <img id="track-cover" src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&q=80&w=400" alt="Album Art" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fa-solid fa-heart text-white text-3xl"></i>
+                        </div>
+                    </div>
+                    <div class="w-full text-left mb-3">
+                        <div id="track-title" class="font-bold text-lg truncate">Lover (Our Special Song)</div>
+                        <div id="track-artist" class="text-xs text-pink-100">Taylor Swift / Acoustic</div>
+                    </div>
+                    <!-- Audio Progress Bar Mock -->
+                    <div class="w-full bg-pink-300/40 h-1.5 rounded-full mb-4 cursor-pointer overflow-hidden">
+                        <div id="audio-progress" class="bg-white h-full w-1/3 transition-all"></div>
+                    </div>
+                    <!-- Controls -->
+                    <div class="flex items-center justify-between w-full px-4">
+                        <button onclick="prevTrack()" class="hover:scale-125 transition-transform"><i class="fa-solid fa-backward-step text-xl"></i></button>
+                        <button id="play-btn" onclick="togglePlay()" class="w-12 h-12 bg-white text-pink-500 rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-play text-xl ml-1"></i>
+                        </button>
+                        <button onclick="nextTrack()" class="hover:scale-125 transition-transform"><i class="fa-solid fa-forward-step text-xl"></i></button>
+                    </div>
+                </div>
+
+                <!-- Vinyl Record Animation -->
+                <div class="relative flex items-center justify-center">
+                    <div id="vinyl-disc" class="w-56 h-56 rounded-full bg-slate-900 border-4 border-slate-800 shadow-2xl flex items-center justify-center animate-spin-slow paused relative">
+                        <!-- Vinyl Grooves -->
+                        <div class="absolute inset-3 border border-slate-700/50 rounded-full pointer-events-none"></div>
+                        <div class="absolute inset-8 border border-slate-700/50 rounded-full pointer-events-none"></div>
+                        <div class="absolute inset-14 border border-slate-700/50 rounded-full pointer-events-none"></div>
+                        
+                        <!-- Vinyl Center Label -->
+                        <div class="w-20 h-20 bg-pink-400 rounded-full border-4 border-white flex items-center justify-center text-center p-1">
+                            <i class="fa-solid fa-music text-white text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="backToGifts()" class="mt-8 px-6 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-full font-bold shadow-md transition-all flex items-center gap-2">
+                <i class="fa-solid fa-arrow-left"></i> Back to Gifts
+            </button>
+        </section>
+
+        <!-- SURPRISE 3: LOVE LETTER -->
+        <section id="surprise-3" class="w-full flex-col items-center hidden">
+            <h2 class="font-cursive text-4xl text-pink-600 font-bold mb-4 text-center">A Letter From My Heart 💌</h2>
+
+            <div class="bg-amber-50/90 border-2 border-pink-200 rounded-2xl p-6 md:p-8 max-w-xl w-full shadow-lg relative overflow-hidden">
+                <!-- Cute Mascot Sticker inside Letter -->
+                <div class="absolute bottom-2 right-2 text-4xl opacity-80 pointer-events-none">
+                    🐱❤️
+                </div>
+
+                <!-- Letter Lines Content -->
+                <div class="max-h-[280px] overflow-y-auto pr-2 custom-scrollbar text-slate-700 leading-relaxed text-sm md:text-base space-y-3 font-semibold">
+                    <p>My Dearest,</p>
+                    <p>You make my life feel infinitely brighter and more meaningful. I feel so tremendously lucky to have you in my world.</p>
+                    <p>I love you with all my heart, and every single moment spent with you is a memory I treasure deeply. Thank you for being my constant smile, my safe space, and my favorite person.</p>
+                    <p>No matter where life takes us, I will always choose you. Today, tomorrow, and forever.</p>
+                    <p class="font-cursive text-2xl text-pink-600 font-bold text-right mt-4">Always, forever yours ❤️</p>
+                </div>
+            </div>
+
+            <button onclick="backToGifts()" class="mt-6 px-6 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-full font-bold shadow-md transition-all flex items-center gap-2">
+                <i class="fa-solid fa-arrow-left"></i> Back to Gifts
+            </button>
+        </section>
+
+    </main>
+
+    <!-- Custom Keypad Style via CSS helper -->
+    <style>
+        .keypad-btn {
+            background-color: #fff;
+            border: 2px solid #fbcfe8;
+            color: #db2777;
+            font-size: 1.25rem;
+            font-weight: 700;
+            height: 3rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.15s ease-in-out;
+        }
+        .keypad-btn:active {
+            transform: scale(0.92);
+            background-color: #fce7f3;
+        }
+    </style>
+
+    <!-- Application Logic Script -->
+    <script>
+        // Secret Passcode Configuration
+        const SECRET_CODE = "1234";
+        let currentInput = "";
+
+        // Track list for Surprise 2
+        const tracks = [
+            { title: "Lover (Our Special Song)", artist: "Taylor Swift", cover: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&q=80&w=400" },
+            { title: "Perfect", artist: "Ed Sheeran", cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=400" },
+            { title: "Until I Found You", artist: "Stephen Sanchez", cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=400" }
+        ];
+        let currentTrackIdx = 0;
+        let isPlaying = false;
+
+        // Keypad Functions
+        function updateDots() {
+            const dots = document.querySelectorAll('#passcode-dots .dot');
+            dots.forEach((dot, index) => {
+                if (index < currentInput.length) {
+                    dot.classList.remove('text-pink-200');
+                    dot.classList.add('text-pink-500');
+                } else {
+                    dot.classList.remove('text-pink-500');
+                    dot.classList.add('text-pink-200');
+                }
+            });
+        }
+
+        function appendNum(num) {
+            if (currentInput.length < 4) {
+                currentInput += num;
+                updateDots();
+
+                if (currentInput.length === 4) {
+                    setTimeout(verifyCode, 200);
+                }
+            }
+        }
+
+        function deleteNum() {
+            if (currentInput.length > 0) {
+                currentInput = currentInput.slice(0, -1);
+                updateDots();
+            }
+        }
+
+        function clearPasscode() {
+            currentInput = "";
+            updateDots();
+            document.getElementById('passcode-msg').innerText = "Hint: Standard code is 1234";
+            document.getElementById('passcode-msg').classList.remove('text-red-500');
+        }
+
+        function verifyCode() {
+            if (currentInput === SECRET_CODE) {
+                // Switch to Gift Screen
+                document.getElementById('step-passcode').classList.add('hidden');
+                document.getElementById('step-gifts').classList.remove('hidden');
+                document.getElementById('step-gifts').classList.add('flex');
+            } else {
+                const msg = document.getElementById('passcode-msg');
+                msg.innerText = "Incorrect secret code! Try again ❤️";
+                msg.classList.add('text-red-500');
+                // Reset passcode
+                currentInput = "";
+                updateDots();
+            }
+        }
+
+        // Navigation & Gift Opening
+        function openGift(giftNumber) {
+            document.getElementById('step-gifts').classList.add('hidden');
+            document.getElementById('step-gifts').classList.remove('flex');
+
+            const surpriseElem = document.getElementById(`surprise-${giftNumber}`);
+            if (surpriseElem) {
+                surpriseElem.classList.remove('hidden');
+                surpriseElem.classList.add('flex');
+            }
+        }
+
+        function backToGifts() {
+            // Hide all surprises
+            [1, 2, 3].forEach(id => {
+                const surpriseElem = document.getElementById(`surprise-${id}`);
+                surpriseElem.classList.add('hidden');
+                surpriseElem.classList.remove('flex');
+            });
+
+            // Pause vinyl music if active
+            if (isPlaying) {
+                togglePlay();
+            }
+
+            // Show gifts screen
+            document.getElementById('step-gifts').classList.remove('hidden');
+            document.getElementById('step-gifts').classList.add('flex');
+        }
+
+        // Music Player Controls (Surprise 2)
+        function togglePlay() {
+            const vinyl = document.getElementById('vinyl-disc');
+            const playBtn = document.getElementById('play-btn');
+            
+            isPlaying = !isPlaying;
+
+            if (isPlaying) {
+                vinyl.classList.remove('paused');
+                playBtn.innerHTML = '<i class="fa-solid fa-pause text-xl"></i>';
+            } else {
+                vinyl.classList.add('paused');
+                playBtn.innerHTML = '<i class="fa-solid fa-play text-xl ml-1"></i>';
+            }
+        }
+
+        function loadTrack(index) {
+            const track = tracks[index];
+            document.getElementById('track-title').innerText = track.title;
+            document.getElementById('track-artist').innerText = track.artist;
+            document.getElementById('track-cover').src = track.cover;
+        }
+
+        function nextTrack() {
+            currentTrackIdx = (currentTrackIdx + 1) % tracks.length;
+            loadTrack(currentTrackIdx);
+        }
+
+        function prevTrack() {
+            currentTrackIdx = (currentTrackIdx - 1 + tracks.length) % tracks.length;
+            loadTrack(currentTrackIdx);
+        }
+    </script>
+</body>
+</html>
